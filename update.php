@@ -1,11 +1,11 @@
 <?php
-include 'config/db.php'; // ✅ include database connection
+include 'config/db.php';
 
 $popupType = '';
 $popupMessage = '';
 $redirect = false;
 
-// ✅ Get student ID from URL
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $result = mysqli_query($conn, "SELECT * FROM students WHERE id = $id");
@@ -13,13 +13,13 @@ if (isset($_GET['id'])) {
     if (mysqli_num_rows($result) > 0) {
         $student = mysqli_fetch_assoc($result);
     } else {
-        die("⚠️ Student not found.");
+        die("Student not found.");
     }
 } else {
-    die("⚠️ Invalid request. No student ID provided.");
+    die("Invalid request. No student ID provided.");
 }
 
-// ✅ Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $student_no = trim($_POST['student_no']);
     $fullname   = trim($_POST['fullname']);
@@ -27,29 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email      = trim($_POST['email']);
     $contact    = trim($_POST['contact']);
 
-    // ✅ Validation checks
+    
     if (empty($student_no) || empty($fullname) || empty($branch) || empty($email) || empty($contact)) {
         $popupType = 'error';
-        $popupMessage = '⚠️ All fields are required!';
+        $popupMessage = 'All fields are required!';
     } elseif (!is_numeric($contact)) {
         $popupType = 'error';
-        $popupMessage = '⚠️ Contact number must be numeric only!';
+        $popupMessage = 'Contact number must be numeric only!';
     } elseif (strlen($contact) != 11 && strlen($contact) != 12) {
         $popupType = 'error';
-        $popupMessage = '⚠️ Contact number must be 11 or 12 digits long!';
+        $popupMessage = 'Contact number must be 11 or 12 digits long!';
     } else {
-        // ✅ If all valid, run UPDATE query
+        
         $query = "UPDATE students 
                   SET student_no='$student_no', fullname='$fullname', branch='$branch', email='$email', contact='$contact'
                   WHERE id = $id";
 
         if (mysqli_query($conn, $query)) {
             $popupType = 'success';
-            $popupMessage = '✅ Student record updated successfully!';
+            $popupMessage = 'Student record updated successfully!';
             $redirect = true;
         } else {
             $popupType = 'error';
-            $popupMessage = '❌ Error updating record: ' . mysqli_error($conn);
+            $popupMessage = 'Error updating record: ' . mysqli_error($conn);
         }
     }
 }
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         text-decoration: none;
     }
 
-    /* ===== Popup Styles ===== */
+   
     .popup {
         display: none;
         position: fixed;
@@ -199,10 +199,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit">Update Student</button>
         </form>
 
-        <a class="back-link" href="read.php">📄 Back to Records</a>
+        <a class="back-link" href="read.php">Back to Records</a>
     </div>
 
-    <!-- Wanderer Popup -->
+   
     <div class="popup" id="popup">
         <div class="popup-content" id="popup-content">
             <img id="popup-img" src="" alt="">

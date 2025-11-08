@@ -63,7 +63,7 @@ include 'config/db.php'; // ✅ Include database connection
     }
 
     th {
-        background-color: #2ecc71;
+        background-color: #1e6fff;
         color: white;
     }
 
@@ -120,7 +120,7 @@ include 'config/db.php'; // ✅ Include database connection
         </thead>
         <tbody>
             <?php
-            // ✅ Fetch all students from DB
+            
             $query = "SELECT * FROM students ORDER BY id DESC";
             $result = mysqli_query($conn, $query);
 
@@ -147,7 +147,7 @@ include 'config/db.php'; // ✅ Include database connection
         </tbody>
     </table>
 
-    <a href="index.php" class="back-link">🏠 Back to Home</a>
+    <a href="index.php" class="back-link">Back to Home</a>
 </div>
 </body>
 </html>

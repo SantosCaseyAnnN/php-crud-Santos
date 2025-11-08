@@ -1,10 +1,10 @@
 <?php
-include 'config/db.php'; // ✅ database connection
+include 'config/db.php';
 
 $popupType = '';
 $popupMessage = '';
 
-// ✅ Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $student_no = trim($_POST['student_no']);
     $fullname   = trim($_POST['fullname']);
@@ -12,27 +12,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email      = trim($_POST['email']);
     $contact    = trim($_POST['contact']);
 
-    // ✅ Validation checks
+   
     if (empty($student_no) || empty($fullname) || empty($branch) || empty($email) || empty($contact)) {
         $popupType = 'error';
-        $popupMessage = '⚠️ All fields are required!';
+        $popupMessage = 'All fields are required!';
     } elseif (!is_numeric($contact)) {
         $popupType = 'error';
-        $popupMessage = '⚠️ Contact number must be numeric only!';
+        $popupMessage = 'Contact number must be numeric only!';
     } elseif (strlen($contact) != 11 && strlen($contact) != 12) {
         $popupType = 'error';
-        $popupMessage = '⚠️ Contact number must be 11 or 12 digits long!';
+        $popupMessage = 'Contact number must be 11 or 12 digits long!';
     } else {
-        // ✅ Insert data if valid
+        
         $query = "INSERT INTO students (student_no, fullname, branch, email, contact)
                   VALUES ('$student_no', '$fullname', '$branch', '$email', '$contact')";
 
         if (mysqli_query($conn, $query)) {
             $popupType = 'success';
-            $popupMessage = '✅ Student added successfully!';
+            $popupMessage = 'Student added successfully!';
         } else {
             $popupType = 'error';
-            $popupMessage = '❌ Error adding student: ' . mysqli_error($conn);
+            $popupMessage = 'Error adding student: ' . mysqli_error($conn);
         }
     }
 }
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     button {
         width: 95%;
         padding: 10px;
-        background: #2ecc71;
+        background: #1e6fff;
         border: none;
         color: white;
         font-weight: bold;
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         transition: 0.3s;
     }
 
-    button:hover { background: #27ae60; }
+    button:hover { background: #12409cff; }
 
     .back-link {
         display: block;
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         text-decoration: none;
     }
 
-    /* ===== Popup Styles ===== */
+
     .popup {
         display: none;
         position: fixed;
@@ -183,10 +183,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit">Add Student</button>
         </form>
 
-        <a class="back-link" href="index.php">🏠 Back to Home</a>
+        <a class="back-link" href="index.php">Back to Home</a>
     </div>
 
-    <!-- Wanderer Popup -->
+    
     <div class="popup" id="popup">
         <div class="popup-content" id="popup-content">
             <img id="popup-img" src="" alt="">
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         text.innerHTML = popupMessage;
         popup.style.display = 'flex';
 
-        // Auto close after 3 seconds
+        
         setTimeout(() => {
             popup.style.display = 'none';
         }, 3000);
