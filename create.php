@@ -103,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         text-decoration: none;
     }
 
-    /* ===== Popup Styles ===== */
     .popup {
         display: none;
         position: fixed;
@@ -169,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <a class="back-link" href="index.php">🏠 Back to Home</a>
     </div>
 
-    <!-- Popup -->
     <div class="popup" id="popup">
         <div class="popup-content" id="popup-content">
             <img id="popup-img" src="" alt="">
